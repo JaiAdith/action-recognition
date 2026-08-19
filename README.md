@@ -10,7 +10,8 @@ This project classifies human actions in short video clips using a pretrained R(
 - Top-1 Accuracy: **89.80%**
 - Top-5 Accuracy: **98.84%**
 - Macro F1-Score: **0.8932**
-- Inference Time: **11.5 ms/clip** (Tesla T4)
+- Inference Time: **11.5 ms/clip** on T4 GPU
+
 
 ## Solution Approach
 
