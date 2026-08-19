@@ -1,0 +1,49 @@
+# Action Recognition in Videos - Configuration
+# Dataset: UCF101 | Model: R(2+1)D-18
+
+seed: 42
+
+data:
+  dataset: "ucf101"
+  root_dir: "./data/UCF-101"
+  annotation_dir: "./data/ucfTrainTestlist"
+  split: 1  # UCF101 has 3 train/test splits
+  num_classes: 101
+  clip_length: 16        # number of frames per clip
+  frame_stride: 2        # sample every Nth frame (effective temporal window = 32 frames)
+  resize: [128, 171]     # resize before crop
+  crop_size: 112         # spatial crop size (standard for 3D CNNs)
+  num_workers: 4
+
+training:
+  batch_size: 8           # conservative for RTX 3050 (4GB VRAM)
+  epochs: 3
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  momentum: 0.9
+  scheduler: "cosine"     # cosine annealing
+  warmup_epochs: 1
+  mixed_precision: true   # AMP for memory savings
+  gradient_accumulation_steps: 4  # effective batch = 32
+  checkpoint_dir: "./results/checkpoints"
+  log_dir: "./results/logs"
+
+model:
+  architecture: "r2plus1d_18"  # options: r3d_18, r2plus1d_18, mc3_18
+  pretrained: true             # Kinetics-400 pretrained weights
+  freeze_bn: false
+  dropout: 0.5
+
+augmentation:
+  random_horizontal_flip: true
+  random_crop: true
+  color_jitter:
+    brightness: 0.2
+    contrast: 0.2
+    saturation: 0.2
+    hue: 0.1
+  temporal_jitter: true  # random start position for clip sampling
+
+evaluation:
+  batch_size: 16
+  num_clips: 5          # multi-clip evaluation: sample 5 clips per video, average predictions

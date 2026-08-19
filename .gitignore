@@ -1,0 +1,33 @@
+# Data
+data/UCF-101/
+data/UCF101.rar
+data/*.zip
+data/ucfTrainTestlist/
+
+# Model checkpoints (large files)
+results/checkpoints/*.pth
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Environment
+.env
+venv/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
